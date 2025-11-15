@@ -119,12 +119,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "91f7f8b6-5ba3-431c-ad7a-16e9289d8889@f9941",
+      "__uuid__": "c376da59-b457-42b0-809f-83ba89627d94@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -217,6 +217,7 @@
     "__prefab": {
       "__id__": 11
     },
+    "fruitId": 0,
     "_id": ""
   },
   {

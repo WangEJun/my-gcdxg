@@ -49,11 +49,11 @@ export class Game extends Component {
 
     // 创建水果
     public creatFruit(){
-        let fruitId = Math.floor(Math.random() * 3)// 随机获取水果ID
+        let fruitId = Math.floor(Math.random() * 1)// 随机获取水果ID
         let fruitNode = instantiate(this.fruitPrefab[fruitId])
         fruitNode.setPosition(this.fruitStart.position)
         fruitNode.getComponent(RigidBody2D).enabled = false
-        fruitNode.getComponent(RigidBody2D).gravityScale = 5 // 设置重力
+        fruitNode.getComponent(RigidBody2D).gravityScale = 10 // 设置重力
         fruitNode.getComponent(FruitData).fruitId = fruitId // 设置水果ID
         let collider = fruitNode.getComponent(Collider2D)
         collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this)
@@ -76,6 +76,7 @@ export class Game extends Component {
         otherColliderData.isSyn = true
 
         let synFruitId = selfColliderData.fruitId + 1 // 合成水果
+        if(selfColliderData.fruitId + 1 > 2)  return
         let synFruitStart = selfCollider.node.position // 合成位置
 
         this.creatSynFruit(synFruitId,synFruitStart)
@@ -86,15 +87,17 @@ export class Game extends Component {
         },0.2)
     }
 
+    // 创建合成水果
     public creatSynFruit(fruitId: number,fruitStart: Vec3){
-        let synFruitNode = instantiate(this.fruitPrefab[fruitId])
+        let synFruitNode = instantiate(this.fruitPrefab[fruitId]) // 创建合成水果节点
+        fruitStart.y += 50 // 增加偏移量
         synFruitNode.setPosition(fruitStart)
-        synFruitNode.setScale(0.8,0.8)// 设置缩放
+        synFruitNode.setScale(0.8,0.8) // 设置缩放
         let collider = synFruitNode.getComponent(Collider2D) 
         collider.on(Contact2DType.BEGIN_CONTACT,this.onBeginContact,this)
         // 禁用刚体
         synFruitNode.getComponent(RigidBody2D).enabled = false
-        synFruitNode.getComponent(RigidBody2D).gravityScale = 5 
+        synFruitNode.getComponent(RigidBody2D).gravityScale = 10 // 设置重力
         synFruitNode.getComponent(FruitData).fruitId = fruitId //设置水果ID
 
         this.fruitParent.addChild(synFruitNode)
